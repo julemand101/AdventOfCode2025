@@ -37,7 +37,7 @@ void main() {
       expect(solveB(example), equals(6));
     });
     test('Solution', () {
-      expect(solveB(input), equals(-1));
+      expect(solveB(input), equals(5887));
     });
-  }, skip: true);
+  });
 }
