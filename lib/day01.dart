@@ -1,33 +1,51 @@
-// --- Day 1: Historian Hysteria ---
-// https://adventofcode.com/2024/day/1
+// --- Day 1: Secret Entrance ---
+// https://adventofcode.com/2025/day/1
 
-import 'package:collection/collection.dart';
+import 'dart:io';
 
 int solveA(Iterable<String> input) {
-  final listA = <int>[];
-  final listB = <int>[];
+  var pos = 50;
+  var count = 0;
 
-  for (final line in input) {
-    final [valueA, valueB] = line.split('   ');
-    listA.add(int.parse(valueA));
-    listB.add(int.parse(valueB));
+  for (final distance in input.map(parse)) {
+    if ((pos = (pos + distance) % 100) == 0) {
+      count++;
+    }
   }
 
-  listA.sort();
-  listB.sort();
-
-  return listA.mapIndexed((index, valueA) => (valueA - listB[index]).abs()).sum;
+  return count;
 }
 
 int solveB(Iterable<String> input) {
-  final listA = <int>[];
-  final countMapB = <int, int>{};
+  var pos = 50;
+  var count = 0;
 
-  for (final line in input) {
-    final [valueA, valueB] = line.split('   ');
-    listA.add(int.parse(valueA));
-    countMapB.update(int.parse(valueB), (i) => i + 1, ifAbsent: () => 1);
+  for (final distance in input.map(parse)) {
+    pos += distance;
+    print('\tto point ${pos % 100}, passing zero: ${(pos / 100).floor().abs()} times');
+
+    count += (pos / 100).floor().abs();
+    pos = pos % 100;
   }
 
-  return listA.map((valueA) => valueA * (countMapB[valueA] ?? 0)).sum;
+  // Too low: 5876
+  return count;
+}
+
+int parse(String input) {
+  print('The dial is rotated: $input');
+
+  final value = int.parse(input.substring(1));
+  return input.startsWith('L') ? -1 * value : value;
+}
+
+void main() {
+  var pos = 50;
+  pos += 1000;
+
+  print(pos);
+  print(pos % 100);
+  print((pos / 100).floor().abs());
+  print(pos ~/ 100);
+  print(pos.remainder(100));
 }

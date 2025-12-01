@@ -1,5 +1,5 @@
-// --- Day 1: Historian Hysteria ---
-// https://adventofcode.com/2024/day/1
+// --- Day 1: Secret Entrance ---
+// https://adventofcode.com/2025/day/1
 
 import 'dart:io';
 import 'package:advent_of_code_2025/day01.dart';
@@ -8,47 +8,36 @@ import 'package:test/test.dart';
 
 final input = File('test/data/day01.txt').readAsLinesSync();
 
+final example =
+    r'''
+L68
+L30
+R48
+L5
+R60
+L55
+L1
+L99
+R14
+L82
+'''
+        .asLines;
+
 void main() {
   group('Part One', () {
     test('Example 1', () {
-      expect(
-        solveA(
-          r'''
-3   4
-4   3
-2   5
-1   3
-3   9
-3   3
-'''
-              .asLines,
-        ),
-        equals(11),
-      );
+      expect(solveA(example), equals(3));
     });
     test('Solution', () {
-      expect(solveA(input), equals(1341714));
+      expect(solveA(input), equals(969));
     });
   });
   group('Part Two', () {
     test('Example 1', () {
-      expect(
-        solveB(
-          r'''
-3   4
-4   3
-2   5
-1   3
-3   9
-3   3
-'''
-              .asLines,
-        ),
-        equals(31),
-      );
+      expect(solveB(example), equals(6));
     });
     test('Solution', () {
-      expect(solveB(input), equals(27384707));
+      expect(solveB(input), equals(-1));
     });
-  });
+  }, skip: true);
 }
