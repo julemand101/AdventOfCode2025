@@ -26,7 +26,7 @@ void main() {
       expect(solveB(example), equals(4174379265));
     });
     test('Solution', () {
-      expect(solveB(input), equals(-1));
+      expect(solveB(input), equals(36862281418));
     });
-  }, skip: true);
+  });
 }
