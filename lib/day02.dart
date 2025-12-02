@@ -24,7 +24,7 @@ int solveB(String input) {
 
 bool check(String number) {
   if (number.length % 2 == 0) {
-    final a = number.substring(0, number.length ~/2);
+    final a = number.substring(0, number.length ~/ 2);
     final b = number.substring(number.length ~/ 2);
 
     if (a == b) {
