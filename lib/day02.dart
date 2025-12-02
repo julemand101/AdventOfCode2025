@@ -18,10 +18,11 @@ int solveB(String input) => solve(input, (number) {
   final halfLength = number.length ~/ 2;
 
   for (var i = 1; i <= halfLength; i++) {
-    final pattern = number.substring(0, i);
-    final regExp = RegExp('^($pattern)+\$');
+    if (number.length % i != 0) {
+      continue;
+    }
 
-    if (regExp.hasMatch(number)) {
+    if (number.substring(0, i) * (number.length ~/ i) == number) {
       return true;
     }
   }
