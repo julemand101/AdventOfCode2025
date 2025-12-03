@@ -46,7 +46,8 @@ void main() {
         solveA(
           r\'\'\'
 <SomeLines>
-\'\'\'.asLines,
+\'\'\'
+              .asLines,
         ),
         equals(-1),
       );
