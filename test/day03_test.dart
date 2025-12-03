@@ -27,4 +27,12 @@ void main() {
       expect(solveA(input), equals(16927));
     });
   });
+  group('Part Two', () {
+    test('Example 1', () {
+      expect(solveB(example), equals(3121910778619));
+    });
+    test('Solution', () {
+      expect(solveB(input), equals(167384358365132));
+    });
+  });
 }

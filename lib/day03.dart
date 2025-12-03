@@ -1,32 +1,34 @@
 // --- Day 3: Lobby ---
 // https://adventofcode.com/2025/day/3
 
-int solveA(Iterable<String> input) {
+int solveA(Iterable<String> input) => solve(input, digits: 2);
+
+int solveB(Iterable<String> input) => solve(input, digits: 12);
+
+int solve(Iterable<String> input, {required int digits}) {
   var sum = 0;
 
   for (final line in input.map((line) => [...line.split('').map(int.parse)])) {
-    var max1 = 0;
+    final digitsBuffer = StringBuffer();
     var maxPos = -1;
 
-    for (var i = 0; i < line.length - 1; i++) {
-      final currentValue = line[i];
+    // spaceLeft = Amount of digits needed to be available for next iteration
+    for (var spaceLeft = digits - 1; spaceLeft >= 0; spaceLeft--) {
+      var max = 0;
 
-      if (currentValue > max1) {
-        max1 = currentValue;
-        maxPos = i;
+      for (var i = maxPos + 1; i < line.length - spaceLeft; i++) {
+        final currentValue = line[i];
+
+        if (currentValue > max) {
+          max = currentValue;
+          maxPos = i;
+        }
       }
+
+      digitsBuffer.write(max);
     }
 
-    var max2 = 0;
-    for (var i = maxPos + 1; i < line.length; i++) {
-      final currentValue = line[i];
-
-      if (currentValue > max2) {
-        max2 = currentValue;
-      }
-    }
-
-    sum += int.parse('$max1$max2');
+    sum += int.parse(digitsBuffer.toString());
   }
 
   return sum;
