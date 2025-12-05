@@ -39,7 +39,7 @@ void main() {
       expect(solveB(example), equals(14));
     });
     test('Solution', () {
-      expect(solveB(input), equals(-1));
+      expect(solveB(input), equals(352340558684863));
     });
-  }, skip: true);
+  });
 }
