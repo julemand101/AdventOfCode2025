@@ -1,6 +1,8 @@
 // --- Day 5: Cafeteria ---
 // https://adventofcode.com/2025/day/5
 
+import 'dart:math';
+
 import 'package:collection/collection.dart';
 
 int solveA(Iterable<String> input) {
@@ -44,37 +46,16 @@ int solveB(Iterable<String> input) {
       for (final intervalB in intervals) {
         if (intervalA == intervalB) continue;
 
-        final fromInRange = intervalA.inRange(intervalB.$1);
-        final toInRange = intervalA.inRange(intervalB.$2);
-
-        // Skip since no overlap
-        if (!fromInRange && !toInRange) {
-          continue;
-        }
-
-        // Interval are fully inside another interval
-        if (fromInRange && toInRange) {
-          intervals.remove(intervalB);
-
-          update = true;
-          continue loop;
-        }
-
-        // Start is in range, move end
-        if (fromInRange) {
-          intervals.remove(intervalA);
-          intervals.remove(intervalB);
-          intervals.add((intervalA.$1, intervalB.$2));
-
-          update = true;
-          continue loop;
-        }
-
-        // End is in range, move start
-        if (fromInRange) {
-          intervals.remove(intervalA);
-          intervals.remove(intervalB);
-          intervals.add((intervalB.$1, intervalA.$2));
+        // To and/or From in range. Do merge
+        if (intervalA.inRange(intervalB.$1) ||
+            intervalA.inRange(intervalB.$2)) {
+          intervals
+            ..remove(intervalA)
+            ..remove(intervalB)
+            ..add((
+              min(intervalA.$1, intervalB.$1),
+              max(intervalA.$2, intervalB.$2),
+            ));
 
           update = true;
           continue loop;
