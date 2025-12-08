@@ -16,7 +16,9 @@ class Point {
   );
 }
 
-int solveA(Iterable<String> input, {int limit = 1000}) {
+(List<Point>, List<(Point, Point, {double distance})>, List<List<Point>>) parse(
+  Iterable<String> input,
+) {
   final points = [
     for (final [x, y, z] in input.map((line) => line.split(',')))
       Point(int.parse(x), int.parse(y), int.parse(z)),
@@ -29,6 +31,12 @@ int solveA(Iterable<String> input, {int limit = 1000}) {
   ]..sort((a, b) => a.distance.compareTo(b.distance));
 
   final circuits = <List<Point>>[for (final point in points) point.circuit];
+
+  return (points, distances, circuits);
+}
+
+int solveA(Iterable<String> input, {int limit = 1000}) {
+  final (points, distances, circuits) = parse(input);
 
   for (final (pointA, pointB, distance: _) in distances.take(limit)) {
     if (!identical(pointA.circuit, pointB.circuit)) {
@@ -45,4 +53,25 @@ int solveA(Iterable<String> input, {int limit = 1000}) {
       .take(3)
       .map((e) => e.length)
       .reduce((a, b) => a * b);
+}
+
+int solveB(Iterable<String> input) {
+  final (points, distances, circuits) = parse(input);
+
+  for (final (pointA, pointB, distance: _) in distances) {
+    if (!identical(pointA.circuit, pointB.circuit)) {
+      circuits.remove(pointB.circuit);
+
+      for (final point in pointB.circuit) {
+        pointA.circuit.add(point);
+        point.circuit = pointA.circuit;
+      }
+    }
+
+    if (circuits.length == 1) {
+      return pointA.x * pointB.x;
+    }
+  }
+
+  throw 'Did not find an answer!';
 }
