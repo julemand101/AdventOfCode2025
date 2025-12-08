@@ -36,12 +36,13 @@ void main() {
 425,690,689
 '''
               .asLines,
+          limit: 10,
         ),
-        equals(-1),
+        equals(40),
       );
     });
     test('Solution', () {
-      expect(solveA(input), equals(-1));
+      expect(solveA(input), equals(47040));
     });
-  }, skip: true);
+  });
 }
