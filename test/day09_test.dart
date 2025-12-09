@@ -8,12 +8,8 @@ import 'package:test/test.dart';
 
 final input = File('test/data/day09.txt').readAsLinesSync();
 
-void main() {
-  group('Part One', () {
-    test('Example 1', () {
-      expect(
-        solveA(
-          r'''
+final example =
+    r'''
 7,1
 11,1
 11,7
@@ -23,13 +19,24 @@ void main() {
 2,3
 7,3
 '''
-              .asLines,
-        ),
-        equals(50),
-      );
+        .asLines
+        .toList(growable: false);
+
+void main() {
+  group('Part One', () {
+    test('Example 1', () {
+      expect(solveA(example), equals(50));
     });
     test('Solution', () {
       expect(solveA(input), equals(4749838800));
     });
   });
+  group('Part Two', () {
+    test('Example 1', () {
+      expect(solveB(example), equals(24));
+    });
+    test('Solution', () {
+      expect(solveB(input), equals(-1));
+    });
+  }, skip: true);
 }
